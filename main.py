@@ -35,9 +35,7 @@ def main():
     messages = [
         {
             "role": "system",
-            "content": """You are a helpful assistant that responds to questions about the screenshot, be very short and give only outputs that are needed.
-                        if there is anything that is not related to the screenshot, then please respond with, sorry I can't help with that, else be very professional
-                        and concise with all outputs.""",
+            "content": """Give me a list of key presses, one key per line to do this. Don't use the shift key. List all your key commands after a line with the text.""",
         }
     ]
 
