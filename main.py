@@ -43,12 +43,15 @@ def main():
     ]
 
     while True:
-        image_path = take_screenshot()
-        base64_image = encode_image_to_base64(image_path)
         question = input("Enter your question for the image (or type 'exit' to quit): ")
-
         if question.lower() == "exit":
             break
+
+        image_path = take_screenshot()
+        base64_image = encode_image_to_base64(image_path)
+
+        # For exiting chat screen.
+        sim_keys.multi_key_press("alt tab")
 
         messages.append(
             {
