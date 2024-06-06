@@ -1,7 +1,7 @@
 import mss
 from openai import OpenAI
 import base64
-import key
+# import key
 import sim_keys
 
 
@@ -32,7 +32,7 @@ def send_image_to_gpt4o(client, messages):
 
 
 def main():
-    client = OpenAI(api_key=key.api())
+    client = OpenAI(api_key="key")
     messages = [
         {
             "role": "system",
@@ -71,7 +71,6 @@ def main():
             output = response.choices[-1].message.content
             print("API Response:", output)
             sim_keys.multi_key_press(output)
-
 
 if __name__ == "__main__":
     main()
