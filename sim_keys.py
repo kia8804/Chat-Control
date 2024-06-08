@@ -22,6 +22,7 @@ def simulate_key_input(key_input: str):
             # print(f"Successfully pressed the '{keys[0]}' key.")
     except Exception as e:
         print(f"An error occurred: {e}")
+        print(keys, key_input)
 
 
 def multi_key_press(str):

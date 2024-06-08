@@ -1,6 +1,7 @@
 import mss
 from openai import OpenAI
 import base64
+
 # import key
 import sim_keys
 
@@ -8,7 +9,7 @@ import sim_keys
 def take_screenshot():
     """Take a screenshot of the current screen and return it as an image file path."""
     with mss.mss() as sct:
-        screenshot_path = "sct.png"
+        screenshot_path = "InQubate-Hackathon/sct.png"
         sct.shot(
             mon=1, output=screenshot_path
         )  # Save screenshot as PNG using the index
@@ -32,13 +33,14 @@ def send_image_to_gpt4o(client, messages):
 
 
 def main():
-    client = OpenAI(api_key="key")
+    client = OpenAI(api_key="")
     messages = [
         {
             "role": "system",
-            "content": """Give me a list of key presses, one key per line to do this. 
+            "content": """Give me a list of key presses after the word "START-KEYS", one key per line to do this. 
             If you need to use 2 keys simultaneously/holding 2 down at the same time put them on the same line (like "ctrl a")
-            Don't use the shift key. List all your key commands after a line with the text.""",
+            Don't use the shift key. List all your key commands after a line with the text. I don't have a mouse or a shift key,
+            I can only use my keyboard to interact with the computer.""",
         }
     ]
 
@@ -70,7 +72,10 @@ def main():
         if response.choices:
             output = response.choices[-1].message.content
             print("API Response:", output)
-            sim_keys.multi_key_press(output)
+            new_output = output[output.index("START-KEYS") + 10 :]
+            print("KEY OUTPUT", new_output)
+            sim_keys.multi_key_press(new_output)
+
 
 if __name__ == "__main__":
     main()
