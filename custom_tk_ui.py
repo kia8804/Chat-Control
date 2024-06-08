@@ -93,7 +93,10 @@ class App():
         self.textbox.see("end")
 
     def _setup_main_window(self):
-        self.send_icon = Image.open("airplane.png")
+        try:
+            self.send_icon = Image.open("airplane.png")
+        except:
+            self.send_icon = Image.open("InQubate-Hackathon/airplane.png")
         self.btn = CTkButton(master=self.app, 
                         text="", 
                         hover_color="#4158D0", 
@@ -101,7 +104,12 @@ class App():
                         command=self.send_message)
         self.btn.place(relx=0.67, rely=0.90, relheight=0.06, relwidth=0.22)
 
-        self.camera_icon = Image.open("camera.png")
+        
+        try:
+            self.camera_icon = Image.open("camera.png")
+        except:
+            self.camera_icon = Image.open("InQubate-Hackathon/camera.png")
+        
         self.screenshot_btn = CTkButton(master=self.app, 
                                 text="", 
                                 hover_color="#4158D0", 
@@ -120,9 +128,13 @@ class App():
         # self.entry.focus_set()
 
         # textbox = CTkTextbox(master=app, scrollbar_button_color="#FFCC70", corner_radius=16)
-        self.textbox = CTkTextbox(master=self.app, scrollbar_button_color="#FFFFFF", corner_radius=16, state="disabled")
+        self.textbox = CTkTextbox(master=self.app, scrollbar_button_color="#FFFFFF", corner_radius=16, state="normal")
         self.textbox.place(relheight=0.80, relwidth=1, rely=0.10)
-
+        # self.textbox.configure(state="normal")
+        self.textbox.insert("end", f"CC: {'How may I assist you today?'}\n")
+        self.textbox.configure(state="disabled")
+        self.textbox.see("end")
+        
 def create_app():
     app = App()
     set_appearance_mode("dark")
