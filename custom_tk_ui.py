@@ -11,7 +11,7 @@ from main import take_screenshot, encode_image_to_base64, send_image_to_gpt4o
 
 
 bot_name = "Chat Control"
-key = "sk-proj-23n4dTGn0tMGJgXTrk9HT3BlbkFJIBfeBBSBCE4LGTPhOxpm"
+key = "42"
 
 
 class App:
