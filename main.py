@@ -9,7 +9,10 @@ import sim_keys
 def take_screenshot():
     """Take a screenshot of the current screen and return it as an image file path."""
     with mss.mss() as sct:
-        screenshot_path = "InQubate-Hackathon/sct.png"
+        try:
+            screenshot_path = "sct.png"
+        except:
+            screenshot_path = "InQubate-Hackathon/sct.png"
         sct.shot(
             mon=1, output=screenshot_path
         )  # Save screenshot as PNG using the index

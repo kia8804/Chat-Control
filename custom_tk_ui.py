@@ -11,7 +11,7 @@ from main import take_screenshot, encode_image_to_base64, send_image_to_gpt4o
 
 
 bot_name = "Chat Control"
-key = ""
+key = "sk-proj-23n4dTGn0tMGJgXTrk9HT3BlbkFJIBfeBBSBCE4LGTPhOxpm"
 
 
 class App:
@@ -28,15 +28,7 @@ class App:
         self._setup_main_window()
 
         self.client = OpenAI(api_key=key)
-        self.messages = [
-            {
-                "role": "system",
-                "content": """Give me a list of key presses after the word "START-KEYS", one key per line to do this. 
-            If you need to use 2 keys simultaneously/holding 2 down at the same time put them on the same line (like "ctrl a")
-            Don't use the shift key. List all your key commands after a line with the text. I don't have a mouse or a shift key,
-            I can only use my keyboard to interact with the computer.""",
-            }
-        ]
+        
         self.image_path = ""
         self.screenshot_taken = False
 
@@ -50,7 +42,16 @@ class App:
 
         # For exiting chat screen.
         sim_keys.multi_key_press("alt tab")
-        self.messages.append(
+        messages = [
+            {
+                "role": "system",
+                "content": """Give me a list of key presses after the word "START-KEYS", one key per line to do this. 
+            If you need to use 2 keys simultaneously/holding 2 down at the same time put them on the same line (like "ctrl a")
+            Don't use the shift key. List all your key commands after a line with the text. I don't have a mouse or a shift key,
+            I can only use my keyboard to interact with the computer.""",
+            }
+        ]
+        messages.append(
             {
                 "role": "user",
                 "content": [
@@ -63,7 +64,7 @@ class App:
             }
         )
 
-        response = send_image_to_gpt4o(self.client, self.messages)
+        response = send_image_to_gpt4o(self.client, messages)
         self.screenshot_taken = False
         if response.choices:
             output = response.choices[-1].message.content
@@ -86,7 +87,10 @@ class App:
             # msg2 = "Hello! How may I assist you today?" # replace with chatbot output
             msg2 = self.ask_bot(msg1)
             self.textbox.configure(state="normal")
-            self.textbox.insert("end", f"CC: {msg2[:msg2.index('START-KEYS')-1]}\n")
+            self.textbox.insert("end", f"CC: {msg2}\n")
+            # self.textbox.insert("end", f"CC: {msg2[:msg2.index('START-KEYS')-1]}\n")
+            print(msg2)
+            print(msg2[:msg2.index('START-KEYS')-1])
             self.textbox.configure(state="disabled")
             self.textbox.see("end")
 
