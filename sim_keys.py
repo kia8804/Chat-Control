@@ -33,6 +33,21 @@ def multi_key_press(str):
         # time.sleep(0.01)
     # print(f"Successfully pressed the '{str}' key.")
 
+def write_text(str):
+    # asterisk words are commands
+    words = str.split("\n")
+    for i in words:
+        if "*" in i: 
+            simulate_key_input(i.strip("*"))
+        elif i == "comma": simulate_key_input(',')
+        elif i == "period": simulate_key_input('.')
+        elif i == "enter": simulate_key_input('enter')
+        elif i == "space": simulate_key_input('space')
+        elif i == "tab": simulate_key_input('tab')
+        else:
+            for j in i:
+                simulate_key_input(j)
+        # pyautogui.press('space')
 
 # # Example usage:
 # simulate_key_input('a')         # This will simulate pressing the 'a' key.
@@ -41,3 +56,9 @@ def multi_key_press(str):
 
 # multi_key_press("""ctrl a
 #                 ctrl c""")
+
+
+# multi_key_press("alt tab")
+# write_text(""""Hello \n
+#            space* \n 
+#            Wow!""")
